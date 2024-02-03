@@ -90,12 +90,21 @@ export const { styled, css, theme, getCssText, keyframes, globalCss } =
       xl: "(1201px <=width)",
     },
   });
-
-const GlobalStyles = globalCss({
-  body: {
-    background: "$background",
-    fontFamily: "Poppins",
-  },
-});
+  const GlobalStyles = globalCss({
+    '*': {
+      margin: 0,
+      padding: 0,
+      boxSizing: "border-box",
+    },
+    a: {
+      textDecoration: "none",
+      color: "inherit",
+    },
+    body: {
+      background: "$background",
+      fontFamily: "Poppins",
+    },
+  });
+  
 
 GlobalStyles();
