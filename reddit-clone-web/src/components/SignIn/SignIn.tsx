@@ -23,7 +23,6 @@ const SignIn = () => {
       const res = await signIn("credentials", {
         username,
         password,
-        redirect: false,
       });
       if (res?.error) {
         setOpenSnackbar(true);

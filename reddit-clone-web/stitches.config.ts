@@ -96,6 +96,10 @@ export const { styled, css, theme, getCssText, keyframes, globalCss } =
       padding: 0,
       boxSizing: "border-box",
     },
+    html: {
+      overflowX: "hidden",
+      marginRight: "calc(-1 * (100vw - 100%))",
+    },
     a: {
       textDecoration: "none",
       color: "inherit",
@@ -105,6 +109,7 @@ export const { styled, css, theme, getCssText, keyframes, globalCss } =
       fontFamily: "Poppins",
     },
   });
+  
   
 
 GlobalStyles();

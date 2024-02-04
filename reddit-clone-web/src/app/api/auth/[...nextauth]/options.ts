@@ -8,7 +8,8 @@ interface Credentials {
 }
 
 export const options: NextAuthOptions = {
-  jwt: {
+  session: {
+    strategy: "jwt",
     maxAge: 3600,
   },
   providers: [
@@ -24,8 +25,6 @@ export const options: NextAuthOptions = {
         }
         const { username, password } = credentials;
 
-        console.log("Credentials:", { username, password });
-
         try {
           const res = await axios.post(
             `http://localhost:8080/api/v1/users/login`,
@@ -36,17 +35,14 @@ export const options: NextAuthOptions = {
           );
 
           const user = res.data;
-          console.log("User:", user);
 
           if (res && user && user !== "User not found") {
-            console.log("User:", user);
             return user;
           } else {
             throw new Error("Invalid Credentials");
           }
         } catch (err) {
           console.log("Error:", err);
-          
         }
 
         return null;
@@ -54,31 +50,27 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token }) {
-      console.log("Session Callback Value:", session, token);
-      if (token) {
-        session.user.id = token.id;
-        session.user.name = token.name;
-        session.user.email = token.email;
-      }
-
-      return {
-        ...session,
-        ...token,
-      };
-    },
-    async jwt ({token}){
-       console.log("JWT Callback Value:", token);
-      return {
-       ...token,
-      };
-    },
     redirect() {
       return "/";
     },
-  },
-  session: {
-    strategy: "jwt",
+    async jwt({ user, token }) {
+      if (user && user.token) {
+        token.token = user.token;
+        token.id = user.id;
+      }
+      console.log("Token:", token);
+      return token;
+    },
+    async session({ session, token }) {
+      session.user = {
+        id: token.id as number,
+        name: session.user.name,
+        email: session.user.email,
+        token: token.token,
+      };
+      console.log("Session:", session);
+      return session;
+    },
   },
   pages: {
     signIn: "/api/auth/signIn",
