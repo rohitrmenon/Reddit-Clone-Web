@@ -6,8 +6,9 @@ export const NavbarStyle = styled("div", {
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
-  gap: "10px",
-  fixed: "top",
+  gap: "10px",  
+  margin: "auto",
+  border:"$accent",
   padding: "$3",
   zIndex: 10,
   a: {
@@ -18,6 +19,7 @@ export const NavbarStyle = styled("div", {
 });
 
 export const NavbarContainer = styled("div", {
+  position:"fixed",  
   width: "100%",
   background: "$surfaceColor",
   boxShadow:"$boxShadow$sm",

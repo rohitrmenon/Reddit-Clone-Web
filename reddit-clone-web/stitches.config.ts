@@ -90,26 +90,25 @@ export const { styled, css, theme, getCssText, keyframes, globalCss } =
       xl: "(1201px <=width)",
     },
   });
-  const GlobalStyles = globalCss({
-    '*': {
-      margin: 0,
-      padding: 0,
-      boxSizing: "border-box",
-    },
-    html: {
-      overflowX: "hidden",
-      marginRight: "calc(-1 * (100vw - 100%))",
-    },
-    a: {
-      textDecoration: "none",
-      color: "inherit",
-    },
-    body: {
-      background: "$background",
-      fontFamily: "Poppins",
-    },
-  });
-  
-  
+const GlobalStyles = globalCss({
+  "*": {
+    margin: 0,
+    padding: 0,
+    boxSizing: "border-box",
+  },
+  html: {
+    overflowX: "hidden",
+    marginRight: "calc(-1 * (100vw - 100%))",
+  },
+  a: {
+    textDecoration: "none",
+    color: "inherit",
+  },
+  body: {
+    border: "1px solid $background",
+    background: "$background",
+    fontFamily: "Poppins",
+  },
+});
 
 GlobalStyles();

@@ -26,7 +26,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <body style={{ height: "100%" }}>
+      <body style={{ height: "100%"}}>
         <Provider>
           <StitchesRegistry>
             <Navbar />
@@ -35,7 +35,9 @@ export default function RootLayout({
                 marginBottom: "4rem",
                 maxWidth: "1200px",
                 maxHeight: "100%",
-                margin: "0 auto",
+                marginTop:"5rem",
+                marginLeft: "auto",
+                marginRight: "auto",
                 padding: "1rem 1rem",
               }}
             >

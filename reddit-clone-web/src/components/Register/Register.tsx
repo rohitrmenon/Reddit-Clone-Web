@@ -4,7 +4,7 @@ import { RegisterDiv } from "./style";
 import { Input, Button } from "@/ui";
 import Link from "next/link";
 
-const SignIn = () => {
+const Register = () => {
   return (
     <RegisterDiv>
       <h1>Welcome!</h1>
@@ -21,4 +21,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Register;

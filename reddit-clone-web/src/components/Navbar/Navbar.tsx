@@ -1,10 +1,11 @@
 "use client";
-import React, { FormEvent, useEffect } from "react";
 import Link from "next/link";
-import { NavbarContainer, NavbarStyle, NavTextMain } from "./style";
-import { Button } from "@/ui";
 import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
+
+import { Button } from "@/ui";
+
+import { NavbarContainer, NavbarStyle, NavTextMain } from "./style";
 
 function Navbar(): JSX.Element {
   const { data: session } = useSession();
@@ -13,7 +14,7 @@ function Navbar(): JSX.Element {
     <NavbarContainer>
       <NavbarStyle>
         <NavTextMain>
-          <Link href="/">Reddit</Link>
+          <Link href="/">Yorokobi</Link>
         </NavTextMain>
 
         {session ? (
@@ -22,11 +23,15 @@ function Navbar(): JSX.Element {
             <Button variant="ghost" onClick={() => signOut()}>
               Sign Out
             </Button>
+
           </>
         ) : (
-          <Button variant="ghost" onClick={() => signIn()}>
-            Sign In
+          <div style={{display:"flex", gap:"1rem"}}>
+          <Button variant="primary" onClick={() => signIn()}>
+            Log in
           </Button>
+          <Link href="/api/auth/register"><Button variant="stroke">Sign up</Button></Link>
+          </div>
         )}
       </NavbarStyle>
     </NavbarContainer>
