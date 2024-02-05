@@ -3,12 +3,17 @@ import Link from "next/link";
 import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
-import { Button } from "@/ui";
+import {
+  Button,
+
+} from "@/ui";
 
 import { NavbarContainer, NavbarStyle, NavTextMain } from "./style";
+import IsSignedIn from "../IsSignedIn/IsSignedIn";
 
 function Navbar(): JSX.Element {
   const { data: session } = useSession();
+  const username = session?.user?.name as string;
 
   return (
     <NavbarContainer>
@@ -17,20 +22,16 @@ function Navbar(): JSX.Element {
           <Link href="/">Yorokobi</Link>
         </NavTextMain>
 
-        {session ? (
-          <>
-            <p>Welcome, {session.user?.name}!</p>
-            <Button variant="ghost" onClick={() => signOut()}>
-              Sign Out
-            </Button>
-
-          </>
+        {session ? (<IsSignedIn username={username} signOut={signOut} />
+         
         ) : (
-          <div style={{display:"flex", gap:"1rem"}}>
-          <Button variant="primary" onClick={() => signIn()}>
-            Log in
-          </Button>
-          <Link href="/api/auth/register"><Button variant="stroke">Sign up</Button></Link>
+          <div style={{ display: "flex", gap: "1rem" }}>
+            <Button variant="primary" onClick={() => signIn()}>
+              Log in
+            </Button>
+            <Link href="/api/auth/register">
+              <Button variant="stroke">Sign up</Button>
+            </Link>
           </div>
         )}
       </NavbarStyle>
