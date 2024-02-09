@@ -3,17 +3,15 @@ import Link from "next/link";
 import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
-import {
-  Button,
-
-} from "@/ui";
+import { Button } from "@/ui";
 
 import { NavbarContainer, NavbarStyle, NavTextMain } from "./style";
 import IsSignedIn from "../IsSignedIn/IsSignedIn";
 
 function Navbar(): JSX.Element {
   const { data: session } = useSession();
-  const username = session?.user?.name as string;
+  const name = session?.user?.name as string;
+  const username = session?.user?.username as string;
 
   return (
     <NavbarContainer>
@@ -21,9 +19,8 @@ function Navbar(): JSX.Element {
         <NavTextMain>
           <Link href="/">Yorokobi</Link>
         </NavTextMain>
-
-        {session ? (<IsSignedIn username={username} signOut={signOut} />
-         
+        {session ? (
+          <IsSignedIn username={username} signOut={signOut} name={name} />
         ) : (
           <div style={{ display: "flex", gap: "1rem" }}>
             <Button variant="primary" onClick={() => signIn()}>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Head from "next/head";
 
+
 import Navbar from "../components/Navbar/Navbar";
 import StitchesRegistry from "./registry";
 import { getCssText } from "../../stitches.config";
@@ -16,6 +17,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
       <Head>
@@ -26,7 +28,7 @@ export default function RootLayout({
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <body style={{ height: "100%"}}>
+      <body>
         <Provider>
           <StitchesRegistry>
             <Navbar />
@@ -34,10 +36,8 @@ export default function RootLayout({
               style={{
                 marginBottom: "4rem",
                 maxWidth: "1200px",
-                maxHeight: "100%",
-                marginTop:"5rem",
-                marginLeft: "auto",
-                marginRight: "auto",
+                minHeight: "100%",
+                margin: "0 auto",
                 padding: "1rem 1rem",
               }}
             >

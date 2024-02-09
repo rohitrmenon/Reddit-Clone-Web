@@ -1,7 +1,7 @@
-import type { NextAuthOptions } from "next-auth";
+import { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
-
+import { BASE_URL } from "@/config/app.config";
 interface Credentials {
   username: string;
   password: string;
@@ -19,7 +19,7 @@ export const options: NextAuthOptions = {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
-      authorize: async (credentials: Credentials | undefined, req) => {
+      authorize: async (credentials: Credentials | undefined) => {
         if (!credentials) {
           return null;
         }
@@ -27,7 +27,7 @@ export const options: NextAuthOptions = {
 
         try {
           const res = await axios.post(
-            `http://localhost:8080/api/v1/users/login`,
+            `${BASE_URL}/api/v1/users/login`,
             { email: username, password },
             {
               headers: { "Content-Type": "application/json" },
@@ -42,28 +42,25 @@ export const options: NextAuthOptions = {
             throw new Error("Invalid Credentials");
           }
         } catch (err) {
-          console.log("Error:", err);
+          throw err;
         }
-
-        return null;
       },
     }),
   ],
   callbacks: {
-    redirect() {
-      return "/";
-    },
     async jwt({ user, token }) {
       if (user && user.token) {
+        token.username = user.username;
         token.token = user.token;
-        token.id = user.id as number | undefined;
+        token.id  = user.id;
       }
       return token;
     },
     async session({ session, token }) {
       session.user = {
-        id: token.id ,
+        id: token.id,
         name: session.user.name,
+        username: token.username,
         email: session.user.email,
         token: token.token,
       };
@@ -74,3 +71,4 @@ export const options: NextAuthOptions = {
     signIn: "/api/auth/signIn",
   },
 };
+

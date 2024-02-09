@@ -98,14 +98,13 @@ const GlobalStyles = globalCss({
   },
   html: {
     overflowX: "hidden",
-    marginRight: "calc(-1 * (100vw - 100%))",
   },
   a: {
     textDecoration: "none",
     color: "inherit",
   },
   body: {
-    border: "1px solid $background",
+    height: "100%",
     background: "$background",
     fontFamily: "Poppins",
   },

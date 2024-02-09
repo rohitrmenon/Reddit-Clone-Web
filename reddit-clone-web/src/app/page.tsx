@@ -1,37 +1,41 @@
 "use client";
 
-import { fetchData } from "@/lib/fetchData";
-import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { Button, Separation } from "@/ui";
+import { House } from "@phosphor-icons/react";
+import {
+  ButtonsContainer,
+  CreateCommunityCard,
+  FeedContainer,
+  HomeContainer,
+  HomeDiv,
+  HomeMainText,
+  HomeTextDiv,
+} from "./style";
+import CreateCommunityModal from "@/components/CreateCommunityModal/CreateCommunityModal";
 
 export default function Home() {
-  const { data: session } = useSession();
-  const [response, setResponse] = useState(null);
-
-  useEffect(() => {
-    const fetchDataAndUpdateState = async () => {
-      if (session) {
-        try {
-          const response = await fetchData(session, `http://localhost:8080/api/v1/users/${session.user.id}`);
-          const data = JSON.stringify(response);
-          setResponse(response);
-        } catch (error) {
-          console.error('Error fetching data:', error);
-        }
-      }
-    };
-
-    fetchDataAndUpdateState();
-  }, [session]);
-
   return (
     <main>
-      <h1>Home</h1>
-      {session && (
-        <>
-          <h2>API Response: {JSON.stringify(response)}</h2>
-        </>
-      )}
+      <HomeContainer>
+        <FeedContainer></FeedContainer>
+        <CreateCommunityCard>
+          <HomeDiv>
+            <HomeMainText>
+              <House />
+              Home
+            </HomeMainText>
+            <HomeTextDiv>
+              Your personal Reddit frontpage. Come here to check in with your
+              favorite communities.
+            </HomeTextDiv>
+          </HomeDiv>
+          <Separation />
+          <ButtonsContainer>
+            <Button>Create Post</Button>
+           <CreateCommunityModal/>
+          </ButtonsContainer>
+        </CreateCommunityCard>
+      </HomeContainer>
     </main>
   );
 }

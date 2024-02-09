@@ -9,42 +9,61 @@ import {
   DropdownMenuGroup,
   DropdownMenuContent,
 } from "@/ui";
-
+import Link from "next/link";
+import { Bell, SignOut } from "@phosphor-icons/react";
 interface Props {
   username: string;
-  signOut: () => void;
+  name: string;
+  signOut: () => Promise<void>;
 }
-const IsSignedIn = ({ username, signOut }: Props) => {
+const IsSignedIn = (props: Props) => {
+  const { username, signOut, name } = props;
+
   return (
     <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+      <Bell size={24} />
       <DropdownMenuRoot>
         <DropdownMenuTrigger asChild>
           <div>
             <Avatar
               size="md"
-              alt={username}
+              alt={name}
               badgePosition="top-right"
               badgeStatus="online"
-              variant="square"
             />
           </div>
         </DropdownMenuTrigger>
         <DropdownMenuPanel>
           <DropdownMenuGroup>
             <DropdownMenuContent>
-              <DropdownMenuItem
-                onSelect={() => console.log("Profile Settings")}
-              >
-                Profile Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onSelect={() => console.log("Create Community")}
-              >
-                Create Community
+              <DropdownMenuItem>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div>{name} </div>{" "}
+                  <div style={{ fontSize: "12px",color:"#999CA0", }}>{username} </div>
+                </div>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={() => signOut()}>
-                Sign Out
+              <DropdownMenuItem>
+                <Link href="/">Feed</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <Link href="/settings"> Settings</Link>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem
+                style={{
+                  cursor: "pointer",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+                onSelect={(event) => {
+                  event.preventDefault();
+                  signOut();
+                }}
+              >
+                <div>Sign Out</div>
+                <SignOut size={24} />
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenuGroup>

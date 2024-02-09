@@ -1,8 +1,7 @@
 "use client";
-import React, { useState, FormEvent } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-
 import {
   Input,
   Button,
@@ -20,17 +19,14 @@ const SignIn = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const res = await signIn("credentials", {
+      await signIn("credentials", {
         username,
         password,
+        callbackUrl: `${window.location.origin}/`,
       });
-      if (res?.error) {
-        setOpenSnackbar(true);
-      }
     } catch (e) {
-      console.log(e);
+      setOpenSnackbar(true);
     }
-
     setUsername("");
     setPassword("");
   };

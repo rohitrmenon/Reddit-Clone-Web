@@ -6,10 +6,10 @@ export const NavbarStyle = styled("div", {
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
-  gap: "10px",  
+  gap: "10px",
   margin: "auto",
-  border:"$accent",
-  padding: "$3",
+  border: "$accent",
+  padding: "$1",
   zIndex: 10,
   a: {
     textDecoration: "none",
@@ -19,14 +19,14 @@ export const NavbarStyle = styled("div", {
 });
 
 export const NavbarContainer = styled("div", {
-  position:"fixed",  
-  width: "100%",
+  position: "sticky",
   background: "$surfaceColor",
-  boxShadow:"$boxShadow$sm",
+  boxShadow: "$boxShadow$sm",
   display: "flex",
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",
+  minWidth: "100%",
 });
 
 export const NavTextMain = styled("div", {
@@ -34,5 +34,5 @@ export const NavTextMain = styled("div", {
   padding: "10px",
   background: "$primary-body-text",
   color: "$surfaceColor",
-  boxShadow:"$boxShadow$sm",
+  boxShadow: "$boxShadow$sm",
 });
