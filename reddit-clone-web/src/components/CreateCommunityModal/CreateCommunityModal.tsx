@@ -9,9 +9,15 @@ import {
   Input,
 } from "@/ui";
 import { useState } from "react";
-
+import { useSession } from "next-auth/react";
+import { usePostData } from "@/hooks/useReactQuery";
+import { Session } from "next-auth";
+import { z } from "zod";
 export default function CreateCommunityModal() {
-  const [input, setInput] = useState<string>();
+  const [input, setInput] = useState<string>("");
+
+  const { data: session } = useSession();
+
   return (
     <Modal>
       <ModalTrigger asChild>
@@ -50,11 +56,7 @@ export default function CreateCommunityModal() {
           variant="buttonOnlyRight"
           rightButtons={[
             // eslint-disable-next-line react/jsx-key
-            <Button
-              variant="primary"
-              size="md"
-              onClick={() => input?.length !== 0 && alert("Create")}
-            >
+            <Button variant="primary" size="md">
               Create
             </Button>,
           ]}

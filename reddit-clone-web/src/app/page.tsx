@@ -12,12 +12,22 @@ import {
   HomeTextDiv,
 } from "./style";
 import CreateCommunityModal from "@/components/CreateCommunityModal/CreateCommunityModal";
+import { useGetData } from "@/hooks/useReactQuery";
+import { useSession } from "next-auth/react";
+import type { Session } from "next-auth";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { data: session } = useSession();
+
+  const { data, error, isLoading } = useGetData(
+    session as Session,
+    `http://localhost:8080/api/users/${session?.user?.id}`
+  );
   return (
     <main>
       <HomeContainer>
-        <FeedContainer></FeedContainer>
+        <FeedContainer>{data}</FeedContainer>
         <CreateCommunityCard>
           <HomeDiv>
             <HomeMainText>
@@ -25,14 +35,14 @@ export default function Home() {
               Home
             </HomeMainText>
             <HomeTextDiv>
-              Your personal Reddit frontpage. Come here to check in with your
+              Your personal Yorokobi frontpage. Come here to check in with your
               favorite communities.
             </HomeTextDiv>
           </HomeDiv>
           <Separation />
           <ButtonsContainer>
             <Button>Create Post</Button>
-           <CreateCommunityModal/>
+            <CreateCommunityModal />
           </ButtonsContainer>
         </CreateCommunityCard>
       </HomeContainer>
