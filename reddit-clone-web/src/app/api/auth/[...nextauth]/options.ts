@@ -1,4 +1,4 @@
-import { type NextAuthOptions } from "next-auth";
+import { type NextAuthOptions ,getServerSession } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 import { BASE_URL } from "@/config/app.config";
@@ -36,7 +36,7 @@ export const options: NextAuthOptions = {
 
           const user = res.data;
 
-          if (res && user && user !== "User not found") {
+          if (res && user && user !== "User not found" && user !== "Incorrect Password") {
             return user;
           } else {
             throw new Error("Invalid Credentials");
@@ -72,3 +72,4 @@ export const options: NextAuthOptions = {
   },
 };
 
+export const getAuthSession = () => getServerSession(options)

@@ -1,23 +1,22 @@
 import type { Metadata } from "next";
 import Head from "next/head";
-
+import type { Session } from "next-auth";
 
 import Navbar from "../components/Navbar/Navbar";
 import StitchesRegistry from "./registry";
 import { getCssText } from "../../stitches.config";
 import Provider from "./Provider";
-
+import { getAuthSession } from "./api/auth/[...nextauth]/options";
 export const metadata: Metadata = {
   title: "Yorokobi",
   description: "Yorokobi - an unopinionated reddit",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en">
       <Head>
@@ -29,7 +28,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <body>
-        <Provider>
+        <Provider session={(await getAuthSession()) as Session | undefined}>
           <StitchesRegistry>
             <Navbar />
             <div

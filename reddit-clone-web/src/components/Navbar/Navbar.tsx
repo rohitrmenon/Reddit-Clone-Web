@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import Link from "next/link";
 import { signIn, signOut } from "next-auth/react";
 import { useSession } from "next-auth/react";
@@ -19,7 +19,7 @@ function Navbar(): JSX.Element {
         <NavTextMain>
           <Link href="/">Yorokobi</Link>
         </NavTextMain>
-        {session ? (
+        {session?.user ? (
           <IsSignedIn username={username} signOut={signOut} name={name} />
         ) : (
           <div style={{ display: "flex", gap: "1rem" }}>

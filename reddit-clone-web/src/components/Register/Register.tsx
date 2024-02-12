@@ -34,7 +34,7 @@ export default function Register() {
 
   const { mutate } = usePostData(routes.auth.register, body);
 
-  const handleSignUp = async () => {
+  const handleSignUp = () => {
     setBody({
       email,
       name,
@@ -43,7 +43,7 @@ export default function Register() {
       image,
     });
 
-    await mutate();
+    mutate();
     setOpenSnackbar(true);
   };
 

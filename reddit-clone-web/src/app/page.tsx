@@ -12,22 +12,14 @@ import {
   HomeTextDiv,
 } from "./style";
 import CreateCommunityModal from "@/components/CreateCommunityModal/CreateCommunityModal";
-import { useGetData } from "@/hooks/useReactQuery";
-import { useSession } from "next-auth/react";
-import type { Session } from "next-auth";
-import { useEffect } from "react";
+
 
 export default function Home() {
-  const { data: session } = useSession();
 
-  const { data, error, isLoading } = useGetData(
-    session as Session,
-    `http://localhost:8080/api/users/${session?.user?.id}`
-  );
   return (
     <main>
       <HomeContainer>
-        <FeedContainer>{data}</FeedContainer>
+        <FeedContainer></FeedContainer>
         <CreateCommunityCard>
           <HomeDiv>
             <HomeMainText>

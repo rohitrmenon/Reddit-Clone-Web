@@ -1,42 +1,43 @@
 import axios from "axios";
 import type { Session } from "next-auth";
 import { BASE_URL } from "@/config/app.config";
-
 const makeAuthenticatedRequest = async (
   url: string,
   method = "GET",
-  data?: any,
-  session?: Session
+  session?: Session,
+  data?: any
 ) => {
   try {
     const config: any = { method, url, data };
-    console.log(data);
-    if (session) {
+    if (session)
       config.headers = {
-        Authorization: `Bearer ${session.user.token}`,
+        Authorization: `${session?.user.token}`,
       };
-    }
     const response = await axios(config);
     return response.data;
   } catch (error) {
-    console.error("Request failed:", error);
-    throw error;
+    throw new Error(error as any);
   }
 };
 
 export const fetchData = async (
   url: string,
   method = "GET",
-  body?: any,
-  session?: Session
+  session?: Session,
+  body?: any
 ) => {
   try {
     const data = await makeAuthenticatedRequest(
       `${BASE_URL}/${url}`,
       method,
-      body,
-      session
+      session,
+      body
     );
+    if (typeof data === "string") {
+      throw new Error(data);
+    }
     return data;
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 };

@@ -1,6 +1,6 @@
 import * as React from "react";
 import * as RadixToast from "@radix-ui/react-toast";
-import { styled,keyframes } from "../../../../stitches.config";
+import { styled, keyframes } from "../../../../stitches.config";
 
 const VIEWPORT_PADDING = 25;
 
@@ -11,9 +11,9 @@ const SnackbarViewport = styled(RadixToast.Viewport, {
   display: "flex",
   flexDirection: "column",
   padding: VIEWPORT_PADDING,
-  gap: 10,
-  minwidth: 344,
-  maxWidth: 381,
+  gap: "10px",
+  minwidth: "344px",
+  maxWidth: "381px",
   margin: 0,
   listStyle: "none",
   zIndex: 2147483647,
@@ -39,7 +39,6 @@ export const SnackbarProvider = styled(RadixToast.Provider);
 
 const SnackbarRoot = styled(RadixToast.Root, {
   fontFamily: "Poppins",
-
   minWidth: "312px",
   width: "fit-content",
   padding: "0.75rem 1rem",
@@ -70,15 +69,6 @@ const SnackbarRoot = styled(RadixToast.Root, {
     animation: `${swipeOut} 100ms ease-out`,
   },
 });
-
-// export const SnackbarTitle = styled(RadixToast.Title, {
-//   gridArea: "title",
-//   marginBottom: 5,
-//   fontWeight: 500,
-//   color: slate.slate12,
-//   fontSize: 15,
-//   border: "1px solid red",
-// });
 
 const SnackbarDescription = styled(RadixToast.Description, {
   flexGrow: 1,

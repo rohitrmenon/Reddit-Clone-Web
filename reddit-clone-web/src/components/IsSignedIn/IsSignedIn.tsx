@@ -1,4 +1,6 @@
 import React from "react";
+import Link from "next/link";
+
 import {
   Avatar,
   DropdownMenuRoot,
@@ -9,8 +11,8 @@ import {
   DropdownMenuGroup,
   DropdownMenuContent,
 } from "@/ui";
-import Link from "next/link";
-import { Bell, SignOut } from "@phosphor-icons/react";
+import { Bell,SignOut } from "@phosphor-icons/react";
+import HomeDropdown from "./HomeDropdown";
 interface Props {
   username: string;
   name: string;
@@ -20,7 +22,14 @@ const IsSignedIn = (props: Props) => {
   const { username, signOut, name } = props;
 
   return (
-    <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "1rem",
+      }}
+    >
+      <HomeDropdown/>
       <Bell size={24} />
       <DropdownMenuRoot>
         <DropdownMenuTrigger asChild>
@@ -39,7 +48,9 @@ const IsSignedIn = (props: Props) => {
               <DropdownMenuItem>
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <div>{name} </div>{" "}
-                  <div style={{ fontSize: "12px",color:"#999CA0", }}>{username} </div>
+                  <div style={{ fontSize: "12px", color: "#999CA0" }}>
+                    {username}{" "}
+                  </div>
                 </div>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
