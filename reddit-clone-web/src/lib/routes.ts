@@ -8,7 +8,9 @@ const routes = {
   },
   subreddit: {
     create: "api/v1/subreddits/create",
-    get: "api/v1/subreddits/user",
+    getSubredditByUser: "api/v1/subreddits/user",
+    getSubredditBySlug: "api/v1/subreddits/getBySlug",
+    getAllSubreddits: "api/v1/subreddits",
   },
 };
 

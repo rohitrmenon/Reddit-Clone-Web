@@ -22,8 +22,9 @@ const HomeDropdown = () => {
   const router = useRouter();
 
   const { data } = useGetData(
-    `${routes.subreddit.get}/${session?.user.id}`,
-    session as Session
+    `${routes.subreddit.getSubredditByUser}/${session?.user.id}`,
+    session as Session,
+    5000
   );
 
   return (
@@ -38,7 +39,9 @@ const HomeDropdown = () => {
         </DropdownMenuTrigger>
         <DropdownMenuPanel>
           <DropdownMenuGroup>
-            <DropdownMenuContent css={{ maxHeight: "300px", overflow: "scroll" }}>
+            <DropdownMenuContent
+              css={{ maxHeight: "300px", overflow: "scroll" }}
+            >
               {data?.map((subredditData: any) => {
                 return (
                   <DropdownMenuItem

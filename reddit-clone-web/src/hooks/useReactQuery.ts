@@ -1,12 +1,23 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import type { Session } from "next-auth";
 import { fetchData } from "@/lib/fetchData";
-
-export const useGetData = (url: string, session?: Session) => {
+import type { Session } from "next-auth";
+export const useGetData = (
+  url: string,
+  session: Session,
+  interval?:number
+) => {
   return useQuery({
     queryKey: [url, session],
-    queryFn: async () => await fetchData(url, "GET", session),
-    refetchInterval:3000
+    queryFn: async () => {
+      try {
+        const res = await fetchData(url, "GET", session);
+        return res;
+      } catch (error: any) {
+        throw error;
+      }
+    },
+    refetchOnWindowFocus:true,
+    refetchInterval: interval,
   });
 };
 
