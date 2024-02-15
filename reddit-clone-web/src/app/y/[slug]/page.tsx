@@ -22,7 +22,6 @@ const Page = ({ params: { slug } }: SlugPageProps) => {
   if (error) {
     return notFound();
   }
-
   return (
     <div>
       <h1>y/{subreddit?.name}</h1>

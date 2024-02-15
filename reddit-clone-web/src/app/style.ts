@@ -32,11 +32,11 @@ export const HomeDiv = styled("div", {
 });
 
 export const HomeMainText = styled("div", {
-  display:"flex",
+  display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  gap:"$1"
-})
+  gap: "$1",
+});
 
 export const HomeTextDiv = styled("div", {
   fontSize: "$sm",

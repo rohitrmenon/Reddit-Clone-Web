@@ -1,7 +1,9 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import { useRouter, usePathname } from "next/navigation";
 import type { Session } from "next-auth";
-import { Avatar, Input } from "@/ui";
+import { Avatar, Button, Input } from "@/ui";
 import { ImageSquare, Link as CreateLink } from "@phosphor-icons/react";
 import { AvatarDiv, CreatePostDiv } from "./style";
 interface CreatePostProps {
@@ -9,6 +11,10 @@ interface CreatePostProps {
 }
 const CreatePost = ({ session }: CreatePostProps) => {
   const name = session?.user?.name as string;
+
+  const router = useRouter();
+
+  const pathname = usePathname();
 
   return (
     <CreatePostDiv>
@@ -20,13 +26,17 @@ const CreatePost = ({ session }: CreatePostProps) => {
           badgeStatus="online"
         />
       </AvatarDiv>
-      <Input readOnly placeholder="Create a post" />
-      <Link href="">
+      <Input
+        readOnly
+        placeholder="Create a post"
+        onClick={() => router.push(pathname + "/submit")}
+      />
+      <Button variant="ghost" onClick={() => router.push(pathname + "/submit")}>
         <ImageSquare size={24} />
-      </Link>
-      <Link href="">
+      </Button>
+      <Button variant="ghost" onClick={() => router.push(pathname + "/submit")}>
         <CreateLink size={24} />
-      </Link>
+      </Button>
     </CreatePostDiv>
   );
 };
