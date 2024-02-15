@@ -4,7 +4,6 @@ import type { Session } from "next-auth";
 export const useGetData = (
   url: string,
   session: Session,
-  interval?:number
 ) => {
   return useQuery({
     queryKey: [url, session],
@@ -17,7 +16,7 @@ export const useGetData = (
       }
     },
     refetchOnWindowFocus:true,
-    refetchInterval: interval,
+    refetchOnMount: true,
   });
 };
 

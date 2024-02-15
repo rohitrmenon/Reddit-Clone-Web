@@ -8,7 +8,6 @@ import {
   DropdownMenuTrigger,
   DropdownMenuPanel,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuGroup,
   DropdownMenuContent,
 } from "@/ui";
@@ -23,8 +22,7 @@ const HomeDropdown = () => {
 
   const { data } = useGetData(
     `${routes.subreddit.getSubredditByUser}/${session?.user.id}`,
-    session as Session,
-    5000
+    session as Session
   );
 
   return (

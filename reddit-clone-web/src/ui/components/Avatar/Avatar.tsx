@@ -16,9 +16,8 @@ type AvatarProps = {
 } & React.ComponentProps<typeof AvatarPrimitive.Root>;
 
 const AvatarRoot = styled(AvatarPrimitive.Root, {
-  width: "40px", // Default width value
+  width: "40px",
   height: "40px",
-  // Default height value
 
   variants: {
     size: {
@@ -175,39 +174,44 @@ const AvatarBadge = styled("div", {
 });
 
 const Avatar = ({
-    badgePosition,
-    badgeStatus,
-    size,
-    alt,
-    clickable = false, // Default is not clickable
-    onClick,
-    ...props
-  }: AvatarProps) => {
-    const altInitials = alt
-      ?.split(" ")
-      .map((name: string) => name[0])
-      .join("");
-  
-    const clickableProps = clickable
-      ? { as: "button", onClick, role: "button", tabIndex: 0 }
-      : {};
-  
-    return (
-      <AvatarRoot size={size} {...props} variant={props.variant} {...clickableProps}>
-        {props.src ? (
-          <AvatarImage src={props.src} />
-        ) : (
-          <AvatarFallback>{altInitials}</AvatarFallback>
-        )}
-        {badgeStatus && (
-          <AvatarBadge
-            badgeStatus={badgeStatus}
-            badgePosition={badgePosition}
-            size={size}
-          />
-        )}
-      </AvatarRoot>
-    );
-  };
-  
-  export { Avatar, AvatarRoot, AvatarBadge, AvatarFallback, AvatarImage };
+  badgePosition,
+  badgeStatus,
+  size,
+  alt,
+  clickable = false,
+  onClick,
+  ...props
+}: AvatarProps) => {
+  const altInitials = alt
+    ?.split(" ")
+    .map((name: string) => name[0])
+    .join("");
+
+  const clickableProps = clickable
+    ? { as: "button", onClick, role: "button", tabIndex: 0 }
+    : {};
+
+  return (
+    <AvatarRoot
+      size={size}
+      {...props}
+      variant={props.variant}
+      {...clickableProps}
+    >
+      {props.src ? (
+        <AvatarImage src={props.src} />
+      ) : (
+        <AvatarFallback>{altInitials}</AvatarFallback>
+      )}
+      {badgeStatus && (
+        <AvatarBadge
+          badgeStatus={badgeStatus}
+          badgePosition={badgePosition}
+          size={size}
+        />
+      )}
+    </AvatarRoot>
+  );
+};
+
+export { Avatar, AvatarRoot, AvatarBadge, AvatarFallback, AvatarImage };

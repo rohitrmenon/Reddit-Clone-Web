@@ -17,7 +17,7 @@ import { usePostData } from "@/hooks/useReactQuery";
 import routes from "@/lib/routes";
 import { CreateSubredditPayload } from "@/lib/validators/subreddit";
 
-import Alert from "../Alert";
+import Alert from "../Common/Alert";
 
 export default function CreateCommunityModal() {
   const [name, setName] = useState<string>("");
@@ -83,6 +83,7 @@ export default function CreateCommunityModal() {
                 gap: "0.5rem",
                 justifyContent: "center",
               }}
+              onSubmit={(e) => e.preventDefault()}
             >
               <p
                 style={{
