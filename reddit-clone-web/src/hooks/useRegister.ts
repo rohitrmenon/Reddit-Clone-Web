@@ -1,4 +1,3 @@
-import type { Session } from "next-auth";
 import { useMutation } from "@tanstack/react-query";
 import { fetchData } from "@/lib/fetchData";
 import routes from "@/lib/routes";

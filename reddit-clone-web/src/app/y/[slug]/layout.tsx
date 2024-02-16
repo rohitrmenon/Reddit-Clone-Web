@@ -42,15 +42,12 @@ const Layout = ({
     subredditId: subreddit?.id,
     userId: session?.user.id as string,
   };
-  console.log(body);
 
   const { mutateAsync, data } = usePostData(
     "http://localhost:8080/api/v1/subreddit/subscription",
     body,
     session as Session
   );
-
-  console.log(data);
 
   if (error) return notFound();
 
@@ -67,15 +64,17 @@ const Layout = ({
                   <h5>You created this community</h5>
                 )}
               </div>
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={() => {
-                  mutateAsync().then(() => refetch());
-                }}
-              >
-                Join
-              </Button>
+              {subreddit?.creatorId !== session?.user?.id && (
+                <Button
+                  size="sm"
+                  variant="secondary"
+                  onClick={() => {
+                    mutateAsync().then(() => refetch());
+                  }}
+                >
+                  Join
+                </Button>
+              )}
             </SubredditInfoContainer>
             <Separation />
             <CreatedAtText>

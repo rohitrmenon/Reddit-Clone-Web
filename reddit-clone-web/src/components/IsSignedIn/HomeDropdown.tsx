@@ -30,7 +30,7 @@ const HomeDropdown = () => {
       <DropdownMenuRoot>
         <DropdownMenuTrigger asChild>
           <div>
-            <Button variant="stroke" css={{}}>
+            <Button variant="stroke">
               Your Communities <CaretDown />
             </Button>
           </div>

@@ -1,5 +1,7 @@
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 import {
   Avatar,
@@ -11,16 +13,16 @@ import {
   DropdownMenuGroup,
   DropdownMenuContent,
 } from "@/ui";
-import { Bell,SignOut } from "@phosphor-icons/react";
+import { Bell, SignOut } from "@phosphor-icons/react";
 import HomeDropdown from "./HomeDropdown";
 interface Props {
   username: string;
   name: string;
-  signOut: () => Promise<void>;
 }
-const IsSignedIn = (props: Props) => {
-  const { username, signOut, name } = props;
 
+const IsSignedIn = (props: Props) => {
+  const { username, name } = props;
+  const router = useRouter();
   return (
     <div
       style={{
@@ -29,7 +31,7 @@ const IsSignedIn = (props: Props) => {
         gap: "1rem",
       }}
     >
-      <HomeDropdown/>
+      <HomeDropdown />
       <Bell size={24} />
       <DropdownMenuRoot>
         <DropdownMenuTrigger asChild>
@@ -68,9 +70,8 @@ const IsSignedIn = (props: Props) => {
                   justifyContent: "space-between",
                   alignItems: "center",
                 }}
-                onSelect={(event) => {
-                  event.preventDefault();
-                  signOut();
+                onClick={() => {
+                  signOut({ callbackUrl: '/', redirect:true });
                 }}
               >
                 <div>Sign Out</div>
