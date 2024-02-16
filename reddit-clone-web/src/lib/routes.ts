@@ -11,7 +11,8 @@ const routes = {
   subreddit: {
     create: () => `${BASE_URL}/api/v1/subreddit/create`,
     getSubredditByUser: () => `${BASE_URL}/api/v1/subreddit/user`,
-    getSubredditBySlug: () => `${BASE_URL}/api/v1/subreddit/getBySlug`,
+    getSubredditBySlug: (slug: string) =>
+      `${BASE_URL}/api/v1/subreddit/getBySlug/${slug}`,
     getAllSubreddits: () => `${BASE_URL}/api/v1/subreddit`,
   },
 };

@@ -13,8 +13,6 @@ import {
   ModalFooter,
   Input,
 } from "@/ui";
-import { usePostData } from "@/hooks/useReactQuery";
-import routes from "@/lib/routes";
 import { CreateSubredditPayload } from "@/lib/validators/subreddit";
 
 import Alert from "../Common/Alert";
@@ -32,13 +30,10 @@ export default function CreateCommunityModal() {
     creatorId: session?.user.id as string,
   };
 
-  // const mutation = usePostData(
-  //   routes.subreddit.create(),
-  //   body,
-  //   session as Session
-  // );
-
-  const { mutateAsync, error, isError, reset } = useCreateSubreddit(body,session as Session);
+  const { mutateAsync, error, isError, reset } = useCreateSubreddit(
+    body,
+    session as Session
+  );
 
   const handleClick = async () => {
     if (!session) {
@@ -47,7 +42,7 @@ export default function CreateCommunityModal() {
     }
     try {
       const result = await mutateAsync();
-      router.push(`/y/${result.data.name}`);
+      router.push(`/y/${result.name}`);
     } catch (error) {
       console.log(error);
     }

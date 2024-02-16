@@ -3,7 +3,10 @@ import { useMutation } from "@tanstack/react-query";
 import { fetchData } from "@/lib/fetchData";
 import { CreateSubredditPayload } from "@/lib/validators/subreddit";
 import routes from "@/lib/routes";
-export const useCreateSubreddit = (body: CreateSubredditPayload,session?: Session) => {
+export const useCreateSubreddit = (
+  body: CreateSubredditPayload,
+  session?: Session
+) => {
   const { mutateAsync, isError, error, reset } = useMutation({
     mutationFn: async () => {
       const data = await fetchData(
@@ -16,9 +19,6 @@ export const useCreateSubreddit = (body: CreateSubredditPayload,session?: Sessio
     },
     onError: (error) => {
       throw error;
-    },
-    onSuccess: (data) => {
-      return data;
     },
   });
 

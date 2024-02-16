@@ -17,6 +17,7 @@ import {
   SubredditInfoDiv,
   SubscribersCount,
 } from "./style";
+import { useGetSubredditBySlug } from "@/hooks/useGetSubredditBySlug";
 
 const Layout = ({
   children,
@@ -27,10 +28,16 @@ const Layout = ({
 }) => {
   const { data: session } = useSession();
 
-  const { data: subreddit, error } = useGetData(
-    `${routes.subreddit.getSubredditBySlug()}/${slug}`,
-    session as Session
-  );
+  // const { data: subreddit, error } = useGetData(
+  //   `${routes.subreddit.getSubredditBySlug()}/${slug}`,
+  //   session as Session
+  // );
+
+  const {
+    data: subreddit,
+    isLoading,
+    error,
+  } = useGetSubredditBySlug(slug, session as Session);
 
   if (error) return notFound();
 
