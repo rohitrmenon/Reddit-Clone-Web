@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import type { Session } from "next-auth";
 import { Avatar, Button, Input } from "@/ui";

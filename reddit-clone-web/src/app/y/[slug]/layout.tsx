@@ -28,7 +28,7 @@ const Layout = ({
   const { data: session } = useSession();
 
   const { data: subreddit, error } = useGetData(
-    `${routes.subreddit.getSubredditBySlug}/${slug}`,
+    `${routes.subreddit.getSubredditBySlug()}/${slug}`,
     session as Session
   );
 
@@ -41,6 +41,9 @@ const Layout = ({
         <SubredditInfoCard>
           <SubredditInfoDiv>
             <AboutText>About Community</AboutText>
+            {subreddit?.creatorId === session?.user?.id && (
+              <h5>You created this community</h5>
+            )}
             <Separation />
             <CreatedAtText>
               Created At:{dateFormatter(subreddit?.createdAt)}

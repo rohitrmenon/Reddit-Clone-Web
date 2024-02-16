@@ -1,3 +1,5 @@
+import { BASE_URL } from "@/config/app.config";
+
 const routes = {
   auth: {
     login: "api/v1/users/login",
@@ -7,10 +9,10 @@ const routes = {
     profile: "api/v1/users",
   },
   subreddit: {
-    create: "api/v1/subreddits/create",
-    getSubredditByUser: "api/v1/subreddits/user",
-    getSubredditBySlug: "api/v1/subreddits/getBySlug",
-    getAllSubreddits: "api/v1/subreddits",
+    create: () => `${BASE_URL}/api/v1/subreddit/create`,
+    getSubredditByUser: () => `${BASE_URL}/api/v1/subreddit/user`,
+    getSubredditBySlug: () => `${BASE_URL}/api/v1/subreddit/getBySlug`,
+    getAllSubreddits: () => `${BASE_URL}/api/v1/subreddit`,
   },
 };
 

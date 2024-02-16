@@ -32,9 +32,9 @@ export const AboutText = styled("h4", {
 });
 
 export const CreatedAtText = styled("h5", {
-  color: "black",
+  color: "$primary-light",
 });
 
 export const SubscribersCount = styled("h5", {
-  color: "black",
+  color: "$backdrop",
 });

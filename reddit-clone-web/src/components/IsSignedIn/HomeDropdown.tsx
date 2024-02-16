@@ -21,7 +21,7 @@ const HomeDropdown = () => {
   const router = useRouter();
 
   const { data } = useGetData(
-    `${routes.subreddit.getSubredditByUser}/${session?.user.id}`,
+    `${routes.subreddit.getSubredditByUser()}/${session?.user.id}`,
     session as Session
   );
 

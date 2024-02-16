@@ -15,7 +15,7 @@ interface SlugPageProps {
 const Page = ({ params: { slug } }: SlugPageProps) => {
   const { data: session } = useSession();
   const { data: subreddit, error } = useGetData(
-    `${routes.subreddit.getSubredditBySlug}/${slug}`,
+    `${routes.subreddit.getSubredditBySlug()}/${slug}`,
     session as Session
   );
 
@@ -25,7 +25,7 @@ const Page = ({ params: { slug } }: SlugPageProps) => {
   return (
     <div>
       <h1>y/{subreddit?.name}</h1>
-      <CreatePost session={session}/>
+      <CreatePost session={session} />
     </div>
   );
 };

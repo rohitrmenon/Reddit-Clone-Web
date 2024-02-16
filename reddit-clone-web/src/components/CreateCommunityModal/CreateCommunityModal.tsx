@@ -18,6 +18,7 @@ import routes from "@/lib/routes";
 import { CreateSubredditPayload } from "@/lib/validators/subreddit";
 
 import Alert from "../Common/Alert";
+import { useCreateSubreddit } from "@/hooks/useCreateSubreddit";
 
 export default function CreateCommunityModal() {
   const [name, setName] = useState<string>("");
@@ -31,11 +32,13 @@ export default function CreateCommunityModal() {
     creatorId: session?.user.id as string,
   };
 
-  const mutation = usePostData(
-    routes.subreddit.create,
-    body,
-    session as Session
-  );
+  // const mutation = usePostData(
+  //   routes.subreddit.create(),
+  //   body,
+  //   session as Session
+  // );
+
+  const { mutateAsync, error, isError, reset } = useCreateSubreddit(body,session as Session);
 
   const handleClick = async () => {
     if (!session) {
@@ -43,9 +46,8 @@ export default function CreateCommunityModal() {
       return;
     }
     try {
-      const result = await mutation.mutateAsync();
-      router.refresh();
-      router.push(`/y/${result.name}`);
+      const result = await mutateAsync();
+      router.push(`/y/${result.data.name}`);
     } catch (error) {
       console.log(error);
     }
@@ -60,11 +62,11 @@ export default function CreateCommunityModal() {
           setOpen={setOpenAlert}
         />
       )}
-      {mutation.isError && (
+      {isError && (
         <Alert
-          description={mutation.error?.message as string}
-          open={mutation.isError}
-          setOpen={mutation.reset}
+          description={error?.message as string}
+          open={isError}
+          setOpen={reset}
         />
       )}
       <Modal>

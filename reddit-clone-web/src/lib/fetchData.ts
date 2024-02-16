@@ -1,6 +1,5 @@
 import axios from "axios";
 import type { Session } from "next-auth";
-import { BASE_URL } from "@/config/app.config";
 const makeAuthenticatedRequest = async (
   url: string,
   method = "GET",
@@ -14,6 +13,7 @@ const makeAuthenticatedRequest = async (
         Authorization: `${session?.user.token}`,
       };
     const response = await axios(config);
+    console.log(response)
     return response.data;
   } catch (error) {
     throw new Error(error as any);
@@ -27,12 +27,7 @@ export const fetchData = async (
   body?: any
 ) => {
   try {
-    const data = await makeAuthenticatedRequest(
-      `${BASE_URL}/${url}`,
-      method,
-      session,
-      body
-    );
+    const data = await makeAuthenticatedRequest(url, method, session, body);
     if (typeof data === "string") {
       throw new Error(data);
     }
