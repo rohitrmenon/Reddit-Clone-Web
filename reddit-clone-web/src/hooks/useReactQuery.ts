@@ -15,8 +15,6 @@ export const useGetData = (
         throw error;
       }
     },
-    refetchOnWindowFocus:true,
-    refetchOnMount: true,
   });
 };
 

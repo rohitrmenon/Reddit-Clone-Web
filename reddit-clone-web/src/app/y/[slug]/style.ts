@@ -27,6 +27,13 @@ export const SubredditInfoDiv = styled("div", {
   width: "100%",
 });
 
+export const SubredditInfoContainer = styled("div", {
+  width: "100%",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+});
+
 export const AboutText = styled("h4", {
   color: "$secondary-body-text",
 });

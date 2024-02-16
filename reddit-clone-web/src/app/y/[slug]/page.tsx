@@ -3,8 +3,6 @@ import React from "react";
 import { useSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import { notFound } from "next/navigation";
-import { useGetData } from "@/hooks/useReactQuery";
-import routes from "@/lib/routes";
 import CreatePost from "@/components/CreatePost/CreatePost";
 import { useGetSubredditBySlug } from "@/hooks/useGetSubredditBySlug";
 interface SlugPageProps {
@@ -15,10 +13,6 @@ interface SlugPageProps {
 
 const Page = ({ params: { slug } }: SlugPageProps) => {
   const { data: session } = useSession();
-  // const { data: subreddit, error } = useGetData(
-  //   `${routes.subreddit.getSubredditBySlug()}/${slug}`,
-  //   session as Session
-  // );
 
   const {
     data: subreddit,

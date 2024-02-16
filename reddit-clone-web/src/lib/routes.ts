@@ -2,8 +2,8 @@ import { BASE_URL } from "@/config/app.config";
 
 const routes = {
   auth: {
-    login: "api/v1/users/login",
-    register: "api/v1/users/register",
+    login: `${BASE_URL}/api/v1/users/login`,
+    register: `${BASE_URL}/api/v1/users/register`,
   },
   user: {
     profile: "api/v1/users",

@@ -5,8 +5,7 @@ import { notFound } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { Button, Separation } from "@/ui";
-import { useGetData } from "@/hooks/useReactQuery";
-import routes from "@/lib/routes";
+import { usePostData } from "@/hooks/useReactQuery";
 import dateFormatter from "@/lib/dateFormatter";
 
 import {
@@ -14,6 +13,7 @@ import {
   CreatedAtText,
   SubredditContainer,
   SubredditInfoCard,
+  SubredditInfoContainer,
   SubredditInfoDiv,
   SubscribersCount,
 } from "./style";
@@ -28,16 +28,29 @@ const Layout = ({
 }) => {
   const { data: session } = useSession();
 
-  // const { data: subreddit, error } = useGetData(
-  //   `${routes.subreddit.getSubredditBySlug()}/${slug}`,
-  //   session as Session
-  // );
-
   const {
     data: subreddit,
-    isLoading,
     error,
+    refetch,
   } = useGetSubredditBySlug(slug, session as Session);
+
+  interface requestbody {
+    subredditId: string;
+    userId: string;
+  }
+  const body: requestbody = {
+    subredditId: subreddit?.id,
+    userId: session?.user.id as string,
+  };
+  console.log(body);
+
+  const { mutateAsync, data } = usePostData(
+    "http://localhost:8080/api/v1/subreddit/subscription",
+    body,
+    session as Session
+  );
+
+  console.log(data);
 
   if (error) return notFound();
 
@@ -47,10 +60,23 @@ const Layout = ({
         {children}
         <SubredditInfoCard>
           <SubredditInfoDiv>
-            <AboutText>About Community</AboutText>
-            {subreddit?.creatorId === session?.user?.id && (
-              <h5>You created this community</h5>
-            )}
+            <SubredditInfoContainer>
+              <div>
+                <AboutText>About Community</AboutText>
+                {subreddit?.creatorId === session?.user?.id && (
+                  <h5>You created this community</h5>
+                )}
+              </div>
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => {
+                  mutateAsync().then(() => refetch());
+                }}
+              >
+                Join
+              </Button>
+            </SubredditInfoContainer>
             <Separation />
             <CreatedAtText>
               Created At:{dateFormatter(subreddit?.createdAt)}

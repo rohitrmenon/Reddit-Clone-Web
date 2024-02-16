@@ -11,10 +11,10 @@ import {
 } from "@/ui";
 
 import { RegistrationPayload } from "@/lib/validators/registrationValidator";
-import { usePostData } from "@/hooks/useReactQuery";
-import routes from "@/lib/routes";
-
+import { useRegister } from "@/hooks/useRegister";
+import { useSession } from "next-auth/react";
 import { RegisterDiv } from "./style";
+import type { Session } from "next-auth";
 
 export default function Register() {
   const [email, setEmail] = useState<string>("");
@@ -32,8 +32,8 @@ export default function Register() {
     image,
   });
 
-  const { mutate } = usePostData(routes.auth.register, body);
-
+  // const { mutate } = usePostData(routes.auth.register, body);
+  const { mutateAsync } = useRegister(body);
   const handleSignUp = () => {
     setBody({
       email,
@@ -43,7 +43,7 @@ export default function Register() {
       image,
     });
 
-    mutate();
+    mutateAsync();
     setOpenSnackbar(true);
   };
 

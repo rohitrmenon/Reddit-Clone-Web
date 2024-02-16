@@ -4,7 +4,7 @@ import routes from "@/lib/routes";
 import { fetchData } from "@/lib/fetchData";
 
 export const useGetSubredditBySlug = (slug: string, session?: Session) => {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, refetch } = useQuery({
     queryKey: [slug, session],
     queryFn: async () => {
       try {
@@ -18,6 +18,7 @@ export const useGetSubredditBySlug = (slug: string, session?: Session) => {
         throw error;
       }
     },
+    refetchOnMount: true,
   });
-  return { data, isLoading, error };
+  return { data, isLoading, error, refetch };
 };
