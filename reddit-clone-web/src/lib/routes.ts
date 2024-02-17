@@ -14,6 +14,7 @@ const routes = {
     getSubredditBySlug: (slug: string) =>
       `${BASE_URL}/api/v1/subreddit/getBySlug/${slug}`,
     getAllSubreddits: () => `${BASE_URL}/api/v1/subreddit`,
+    subscription: () => `${BASE_URL}/api/v1/subreddit/subscription`,
   },
 };
 

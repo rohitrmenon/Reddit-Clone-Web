@@ -6,7 +6,6 @@ import { useSession } from "next-auth/react";
 
 import { Button, Separation } from "@/ui";
 import Spinnner from "@/components/Common/Spinnner";
-import { usePostData } from "@/hooks/useReactQuery";
 import dateFormatter from "@/lib/dateFormatter";
 
 import {
@@ -19,6 +18,7 @@ import {
   SubscribersCount,
 } from "./style";
 import { useGetSubredditBySlug } from "@/hooks/useGetSubredditBySlug";
+import JoinLeaveToggle from "@/components/JoinLeaveToggle/JoinLeaveToggle";
 
 const Layout = ({
   children,
@@ -35,22 +35,6 @@ const Layout = ({
     refetch,
     isLoading,
   } = useGetSubredditBySlug(slug, session as Session);
-
-  interface requestbody {
-    subredditId: string;
-    userId: string;
-  }
-
-  const body: requestbody = {
-    subredditId: subreddit?.id,
-    userId: session?.user.id as string,
-  };
-
-  const { mutateAsync, data } = usePostData(
-    "http://localhost:8080/api/v1/subreddit/subscription",
-    body,
-    session as Session
-  );
 
   if (isLoading) return <Spinnner />;
 
@@ -70,15 +54,11 @@ const Layout = ({
                 )}
               </div>
               {subreddit?.creatorId !== session?.user?.id && (
-                <Button
-                  size="sm"
-                  variant="secondary"
-                  onClick={() => {
-                    mutateAsync().then(() => refetch());
-                  }}
-                >
-                  Join
-                </Button>
+                <JoinLeaveToggle
+                  subredditId={subreddit?.id}
+                  userId={session?.user?.id as string}
+                  session={session as Session}
+                />
               )}
             </SubredditInfoContainer>
             <Separation />

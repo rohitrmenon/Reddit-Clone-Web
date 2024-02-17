@@ -6,6 +6,7 @@ export const SubredditValidator = z.object({
 })
 
 export const SubredditSubscriptionValidator = z.object({
+    userId: z.string(),
     subredditId: z.string()
 })
 

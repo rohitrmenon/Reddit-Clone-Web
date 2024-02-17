@@ -13,6 +13,7 @@ const makeAuthenticatedRequest = async (
         Authorization: `${session?.user.token}`,
       };
     const response = await axios(config);
+
     return response.data;
   } catch (error) {
     throw new Error(error as any);
