@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { fetchData } from "@/lib/fetchData";
 import routes from "@/lib/routes";
 import { RegistrationPayload } from "@/lib/validators/registrationValidator";
 import axios from "axios";

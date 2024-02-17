@@ -1,7 +1,5 @@
 import { styled } from "../../../../stitches.config";
 
-// import "@fontsource/poppins/500.css"
-
 export const Button = styled("button", {
   fontWeight: "600",
   fontStyle: "$normal",

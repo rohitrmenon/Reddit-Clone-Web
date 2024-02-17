@@ -1,9 +1,8 @@
-"use client";
 import React from "react";
 import { useRouter, usePathname } from "next/navigation";
 import type { Session } from "next-auth";
 import { Avatar, Button, Input } from "@/ui";
-import { ImageSquare, Link as CreateLink } from "@phosphor-icons/react";
+import { ImageSquare, Link as CreateLink } from "@phosphor-icons/react/dist/ssr";
 import { AvatarDiv, CreatePostDiv } from "./style";
 interface CreatePostProps {
   session: Session | null;

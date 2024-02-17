@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react";
 import { Session } from "next-auth";
 import { useSession } from "next-auth/react";

@@ -1,8 +1,9 @@
-"use client";
+"use client"
 import React from "react";
 import { useSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import { notFound } from "next/navigation";
+
 import CreatePost from "@/components/CreatePost/CreatePost";
 import { useGetSubredditBySlug } from "@/hooks/useGetSubredditBySlug";
 interface SlugPageProps {
@@ -12,11 +13,10 @@ interface SlugPageProps {
 }
 
 const Page = ({ params: { slug } }: SlugPageProps) => {
-  const { data: session } = useSession();
+  const {data:session} = useSession();
 
   const {
     data: subreddit,
-    isLoading,
     error,
   } = useGetSubredditBySlug(slug, session as Session);
 

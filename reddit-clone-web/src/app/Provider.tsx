@@ -1,8 +1,8 @@
 "use client";
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
+import React from "react";
 import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import React from "react";
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 
 interface ProviderProps {
   children: React.ReactNode;
@@ -10,15 +10,18 @@ interface ProviderProps {
 }
 
 const Provider: React.FC<ProviderProps> = ({ children, session }) => {
-  const client = new QueryClient({
-    defaultOptions: {
-      queries: {
-        retry: false,
-      },
-    },
-  });
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      })
+  );
   return (
-    <QueryClientProvider client={client}>
+    <QueryClientProvider client={queryClient}>
       <SessionProvider session={session}>{children}</SessionProvider>
     </QueryClientProvider>
   );

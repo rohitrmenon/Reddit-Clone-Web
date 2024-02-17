@@ -1,3 +1,4 @@
+"use client"
 export * from "./Button";
 export * from "./Accordion"
 export * from "./Input"
@@ -9,3 +10,4 @@ export * from "./Separator"
 export * from "./Header"
 export * from "./Footer"
 export * from "./Modal"
+export * from "./Spinner"

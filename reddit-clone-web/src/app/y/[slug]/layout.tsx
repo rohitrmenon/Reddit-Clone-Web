@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 import { Button, Separation } from "@/ui";
+import Spinnner from "@/components/Common/Spinnner";
 import { usePostData } from "@/hooks/useReactQuery";
 import dateFormatter from "@/lib/dateFormatter";
 
@@ -32,12 +33,14 @@ const Layout = ({
     data: subreddit,
     error,
     refetch,
+    isLoading,
   } = useGetSubredditBySlug(slug, session as Session);
 
   interface requestbody {
     subredditId: string;
     userId: string;
   }
+
   const body: requestbody = {
     subredditId: subreddit?.id,
     userId: session?.user.id as string,
@@ -48,6 +51,8 @@ const Layout = ({
     body,
     session as Session
   );
+
+  if (isLoading) return <Spinnner />;
 
   if (error) return notFound();
 

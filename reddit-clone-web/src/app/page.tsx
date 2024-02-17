@@ -1,7 +1,6 @@
-"use client";
-
+"use client"
 import { Button, Separation } from "@/ui";
-import { House } from "@phosphor-icons/react";
+import { House } from "@phosphor-icons/react/dist/ssr";
 import {
   ButtonsContainer,
   CreateCommunityCard,
@@ -12,7 +11,6 @@ import {
   HomeTextDiv,
 } from "./style";
 import CreateCommunityModal from "@/components/CreateCommunityModal/CreateCommunityModal";
-
 
 export default function Home() {
 
