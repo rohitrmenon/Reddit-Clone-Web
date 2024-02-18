@@ -5,7 +5,7 @@ import { fetchData } from "@/lib/fetchData";
 
 export const useGetSubredditBySlug = (slug: string, session?: Session) => {
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: [slug, session],
+    queryKey: ["subredditBySlug", session],
     queryFn: async () => {
       try {
         const data = await fetchData(

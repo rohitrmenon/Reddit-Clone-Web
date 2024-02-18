@@ -58,6 +58,7 @@ const Layout = ({
                   subredditId={subreddit?.id}
                   userId={session?.user?.id as string}
                   session={session as Session}
+                  refetch={() => refetch()}
                 />
               )}
             </SubredditInfoContainer>

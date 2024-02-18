@@ -1,10 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import routes from "@/lib/routes";
 import { fetchData } from "@/lib/fetchData";
 import type { Session } from "next-auth";
 import { SubscribeToSubredditPayload } from "@/lib/validators/subreddit";
 
-export const useSubscription = (
+export const usePostSubscription = (
   subredditId: string,
   userId: string,
   session?: Session
@@ -16,7 +16,7 @@ export const useSubscription = (
         subredditId,
       };
       const response = await fetchData(
-        routes.subreddit.subscription(),
+        routes.subreddit.postSubscription(),
         "POST",
         session,
         body
@@ -29,4 +29,35 @@ export const useSubscription = (
   });
 
   return { mutateAsync, isError, error, reset };
+};
+
+export const useGetSubscription = (
+  userId: string,
+  subredditId: string,
+  session?: Session
+) => {
+  const queryClient = useQueryClient();
+  const { data, error, isLoading, isFetching,refetch } = useQuery({
+    queryKey: ["subscription", userId, subredditId],
+    queryFn: async () => {
+      try {
+        const response = await fetchData(
+          routes.subreddit.getSubscription(userId, subredditId),
+          "GET",
+          session
+        );
+        return response;
+      } catch (error: any) {
+        throw error;
+      }
+    },
+  });
+  // const refetch = async () => {
+  //   console.log("refetching")
+  //   await queryClient.invalidateQueries({
+  //     queryKey: ["subscription", userId, subredditId],
+  //   });
+  // };
+
+  return { data, error, isLoading, isFetching, refetch };
 };
