@@ -1,7 +1,6 @@
 import React, { useState, forwardRef } from "react";
 import { styled } from "../../../../stitches.config";
 
-
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   type?: "text" | "password" | "number" | "email";
@@ -195,7 +194,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>((props, ref) => {
             <InputBase
               ref={ref}
               type={showPassword ? "text" : "password"}
-              {...restProps} // Use restProps here
+              {...restProps}
               inputState={state}
               inputSize={Size}
             />

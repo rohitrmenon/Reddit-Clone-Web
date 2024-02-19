@@ -19,6 +19,7 @@ import {
 } from "./style";
 import { useGetSubredditBySlug } from "@/hooks/useGetSubredditBySlug";
 import JoinLeaveToggle from "@/components/JoinLeaveToggle/JoinLeaveToggle";
+import Link from "next/link";
 
 const Layout = ({
   children,
@@ -43,7 +44,7 @@ const Layout = ({
   return (
     <>
       <SubredditContainer>
-        {children}
+        <div>{children}</div>
         <SubredditInfoCard>
           <SubredditInfoDiv>
             <SubredditInfoContainer>
@@ -70,7 +71,9 @@ const Layout = ({
               Members:{subreddit?.subscribers?.length}
             </SubscribersCount>
             <Separation />
-            <Button variant="primary">Create Post</Button>
+            <Link href={`/y/${slug}/submit`}>
+              <Button variant="primary">Create Post</Button>
+            </Link>
           </SubredditInfoDiv>
         </SubredditInfoCard>
       </SubredditContainer>

@@ -1,16 +1,12 @@
 "use client";
-import React, { useEffect } from "react";
+import { useState, useEffect } from "react";
 import type { Session } from "next-auth";
 import {
   useGetSubscription,
   usePostSubscription,
 } from "@/hooks/useSubscription";
 import { Button } from "@/ui";
-import {
-  RefetchOptions,
-  QueryObserverResult,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { RefetchOptions, QueryObserverResult } from "@tanstack/react-query";
 interface JoinLeaveToggleProps {
   subredditId: string;
   userId: string;
@@ -26,44 +22,31 @@ const JoinLeaveToggle = ({
   session,
   refetch,
 }: JoinLeaveToggleProps) => {
-  const { mutateAsync, reset } = usePostSubscription(
-    subredditId,
+  const { mutateAsync } = usePostSubscription(subredditId, userId, session);
+  const { data: subscription, refetch: subRefetch } = useGetSubscription(
     userId,
+    subredditId,
     session
   );
-  const {
-    data: subscription,
-    isLoading,
-    error,
-    isFetching,
-    refetch: subRefetch,
-  } = useGetSubscription(userId, subredditId, session);
 
-  const [subscribed, setSubscribed] = React.useState<boolean>(
-    Boolean(subscription)
-  );
+  const [subscribed, setSubscribed] = useState<boolean>(Boolean(subscription));
 
   useEffect(() => {
     setSubscribed(Boolean(subscription));
   }, [subscription]);
-  const handleJoinClick = async () => {
-    await mutateAsync();
-    await subRefetch();
-    await refetch();
-  };
 
-  const handleLeaveClick = async () => {
+  const handleJoinAndLeave = async () => {
     await mutateAsync();
     await subRefetch();
     await refetch();
   };
 
   return subscribed ? (
-    <Button variant="ghost" size="sm" onClick={handleLeaveClick}>
+    <Button variant="ghost" size="sm" onClick={handleJoinAndLeave}>
       Leave
     </Button>
   ) : (
-    <Button variant="secondary" size="sm" onClick={handleJoinClick}>
+    <Button variant="secondary" size="sm" onClick={handleJoinAndLeave}>
       Join
     </Button>
   );
