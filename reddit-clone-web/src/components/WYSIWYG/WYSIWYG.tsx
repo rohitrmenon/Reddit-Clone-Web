@@ -3,7 +3,7 @@ import React from 'react'
 interface WYSIWYGProps {}
 const WYSIWYG = () => {
   return (
-    <div>WYSIWYG</div>
+    <div>WYSIWYG for this</div>
   )
 }
 
