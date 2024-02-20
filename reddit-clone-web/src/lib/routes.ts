@@ -15,7 +15,11 @@ const routes = {
       `${BASE_URL}/api/v1/subreddit/getBySlug/${slug}`,
     getAllSubreddits: () => `${BASE_URL}/api/v1/subreddit`,
     postSubscription: () => `${BASE_URL}/api/v1/subreddit/postSubscription`,
-    getSubscription: (userId:string,subredditId:string) => `${BASE_URL}/api/v1/subreddit/getSubscription/user/${userId}/subreddit/${subredditId}`,
+    getSubscription: (userId: string, subredditId: string) =>
+      `${BASE_URL}/api/v1/subreddit/getSubscription/user/${userId}/subreddit/${subredditId}`,
+  },
+  post: {
+    link: () => `${BASE_URL}/api/v1/posts/link`,
   },
 };
 

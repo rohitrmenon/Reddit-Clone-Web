@@ -8,7 +8,7 @@ import {
   CreatePostPageMainTitle,
   CreatePostPageTitleDiv,
   CreatePostPageContainer,
-  CreatePostForm
+  CreatePostForm,
 } from "./style";
 import { Button } from "@/ui";
 import WYSIWYG from "@/components/WYSIWYG/WYSIWYG";
@@ -31,9 +31,9 @@ const Page = ({ params: { slug } }: PageProps) => {
         </CreatePostPageSubredditTitle>
       </CreatePostPageTitleDiv>
       <CreatePostForm>
-        <WYSIWYG/>
+        <WYSIWYG userId={session?.user?.id} subredditId={subreddit?.id} />
       </CreatePostForm>
-      <Button size="md" variant="primary">
+      <Button size="md" variant="primary" type="submit" form="create-post-form">
         Submit
       </Button>
     </CreatePostPageContainer>

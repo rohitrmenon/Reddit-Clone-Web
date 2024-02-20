@@ -5,7 +5,7 @@ declare module "next-auth/jwt" {
   export interface JWT {
     id: string;
     token?: string;
-    username?:string
+    username?: string;
   }
 }
 

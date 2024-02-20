@@ -3,9 +3,9 @@ import type { Session } from "next-auth";
 import routes from "@/lib/routes";
 import { fetchData } from "@/lib/fetchData";
 
-export const useGetSubredditBySlug = (slug: string, session?: Session) => {
+export const useGetSubredditBySlug = (slug: string, session: Session) => {
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ["subredditBySlug", session],
+    queryKey: [slug],
     queryFn: async () => {
       try {
         const data = await fetchData(

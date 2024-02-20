@@ -45,37 +45,39 @@ const Layout = ({
     <>
       <SubredditContainer>
         <div>{children}</div>
-        <SubredditInfoCard>
-          <SubredditInfoDiv>
-            <SubredditInfoContainer>
-              <div>
-                <AboutText>About Community</AboutText>
-                {subreddit?.creatorId === session?.user?.id && (
-                  <h5>You created this community</h5>
+        <div>
+          <SubredditInfoCard>
+            <SubredditInfoDiv>
+              <SubredditInfoContainer>
+                <div>
+                  <AboutText>About Community</AboutText>
+                  {subreddit?.creatorId === session?.user?.id && (
+                    <h5>You created this community</h5>
+                  )}
+                </div>
+                {subreddit?.creatorId !== session?.user?.id && (
+                  <JoinLeaveToggle
+                    subredditId={subreddit?.id}
+                    userId={session?.user?.id as string}
+                    session={session as Session}
+                    refetch={() => refetch()}
+                  />
                 )}
-              </div>
-              {subreddit?.creatorId !== session?.user?.id && (
-                <JoinLeaveToggle
-                  subredditId={subreddit?.id}
-                  userId={session?.user?.id as string}
-                  session={session as Session}
-                  refetch={() => refetch()}
-                />
-              )}
-            </SubredditInfoContainer>
-            <Separation />
-            <CreatedAtText>
-              Created At:{dateFormatter(subreddit?.createdAt)}
-            </CreatedAtText>
-            <SubscribersCount>
-              Members:{subreddit?.subscribers?.length}
-            </SubscribersCount>
-            <Separation />
-            <Link href={`/y/${slug}/submit`}>
-              <Button variant="primary">Create Post</Button>
-            </Link>
-          </SubredditInfoDiv>
-        </SubredditInfoCard>
+              </SubredditInfoContainer>
+              <Separation />
+              <CreatedAtText>
+                Created At:{dateFormatter(subreddit?.createdAt)}
+              </CreatedAtText>
+              <SubscribersCount>
+                Members:{subreddit?.subscribers?.length}
+              </SubscribersCount>
+              <Separation />
+              <Link href={`/y/${slug}/submit`}>
+                <Button variant="primary">Create Post</Button>
+              </Link>
+            </SubredditInfoDiv>
+          </SubredditInfoCard>
+        </div>
       </SubredditContainer>
     </>
   );
