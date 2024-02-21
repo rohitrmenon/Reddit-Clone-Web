@@ -1,19 +1,25 @@
-import { useCallback, useRef ,useState} from "react";
+import { useEffect, useRef, lazy} from "react";
 import { useForm } from "react-hook-form";
 import { CreatePostPayload, PostValidator } from "@/lib/validators/post";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type EditorJS from "@editorjs/editorjs";
-import routes from "@/lib/routes";
-import { TextArea, WYSIWYGEditorContainer } from "./style";
+import { TextArea, EditorContainer, WYSIWYGEditor } from "./style";
+
 interface WYSIWYGProps {
   userId: string | undefined;
   subredditId: string;
 }
 const WYSIWYG = ({ userId: authorId, subredditId }: WYSIWYGProps) => {
   const ref = useRef<EditorJS>();
-  const [isMounted, setIsMounted] = useState<boolean>(false)
 
-  const initialiseEditor = useCallback(async () => {
+  useEffect(() => {
+    const initialise = async () => {
+      await initialiseEditor();
+    };
+    initialise();
+  }, []);
+
+  const initialiseEditor = async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
     const Header = (await import("@editorjs/header")).default;
     const List = (await import("@editorjs/list")).default;
@@ -29,7 +35,6 @@ const WYSIWYG = ({ userId: authorId, subredditId }: WYSIWYGProps) => {
         holder: "editorjs",
         onReady() {
           ref.current = editor;
-          alert("Editor.js has been initialized");
         },
         placeholder: "Write something...",
         inlineToolbar: true,
@@ -38,12 +43,6 @@ const WYSIWYG = ({ userId: authorId, subredditId }: WYSIWYGProps) => {
         },
         tools: {
           header: Header,
-          linkTool: {
-            class: LinkTool,
-            config: {
-              endpoint: routes.post.link(),
-            },
-          },
           list: List,
           code: Code,
           inlineCode: InlineCode,
@@ -52,8 +51,8 @@ const WYSIWYG = ({ userId: authorId, subredditId }: WYSIWYGProps) => {
         },
       });
     }
-    initialiseEditor();
-  }, []);
+  };
+
   const {
     register,
     handleSubmit,
@@ -69,11 +68,12 @@ const WYSIWYG = ({ userId: authorId, subredditId }: WYSIWYGProps) => {
   });
 
   return (
-    <WYSIWYGEditorContainer>
+    <EditorContainer>
       <form id="create-post-form" onSubmit={() => {}}>
         <TextArea placeholder="Title" />
+        <WYSIWYGEditor id="editorjs" />
       </form>
-    </WYSIWYGEditorContainer>
+    </EditorContainer>
   );
 };
 
