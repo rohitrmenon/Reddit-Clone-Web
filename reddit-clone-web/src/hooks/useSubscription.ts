@@ -52,12 +52,6 @@ export const useGetSubscription = (
       }
     },
   });
-  // const refetch = async () => {
-  //   console.log("refetching")
-  //   await queryClient.invalidateQueries({
-  //     queryKey: ["subscription", userId, subredditId],
-  //   });
-  // };
 
   return { data, error, isLoading, isFetching, refetch };
 };

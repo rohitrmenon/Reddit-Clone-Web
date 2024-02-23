@@ -1,4 +1,4 @@
-import { useEffect, useRef, lazy} from "react";
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { CreatePostPayload, PostValidator } from "@/lib/validators/post";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,14 +9,22 @@ interface WYSIWYGProps {
   userId: string | undefined;
   subredditId: string;
 }
+
 const WYSIWYG = ({ userId: authorId, subredditId }: WYSIWYGProps) => {
   const ref = useRef<EditorJS>();
-
+  const editorMountRef = useRef<boolean>(false);
   useEffect(() => {
-    const initialise = async () => {
-      await initialiseEditor();
+    const init = async () => {
+      initialiseEditor();
     };
-    initialise();
+    if (editorMountRef.current === false) {
+      init();
+    }
+
+    return () => {
+      editorMountRef.current = true;
+      ref.current?.destroy();
+    };
   }, []);
 
   const initialiseEditor = async () => {
