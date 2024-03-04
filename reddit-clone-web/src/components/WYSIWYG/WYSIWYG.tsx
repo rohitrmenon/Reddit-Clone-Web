@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { CreatePostPayload, PostValidator } from "@/lib/validators/post";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type EditorJS from "@editorjs/editorjs";
 import { TextArea, EditorContainer, WYSIWYGEditor } from "./style";
+import { useCreatePost } from "@/hooks/useCreatePost";
+import { usePathname, useRouter } from "next/navigation";
 
 interface WYSIWYGProps {
   userId: string | undefined;
@@ -13,6 +15,10 @@ interface WYSIWYGProps {
 const WYSIWYG = ({ userId: authorId, subredditId }: WYSIWYGProps) => {
   const ref = useRef<EditorJS>();
   const editorMountRef = useRef<boolean>(false);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<null>();
+  const pathname = usePathname();
+  const router = useRouter();
   useEffect(() => {
     const init = async () => {
       initialiseEditor();
@@ -26,6 +32,12 @@ const WYSIWYG = ({ userId: authorId, subredditId }: WYSIWYGProps) => {
       ref.current?.destroy();
     };
   }, []);
+  const { mutateAsync, error, data, isSuccess } = useCreatePost(
+    title,
+    content,
+    subredditId,
+    authorId
+  );
 
   const initialiseEditor = async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
@@ -75,10 +87,24 @@ const WYSIWYG = ({ userId: authorId, subredditId }: WYSIWYGProps) => {
     },
   });
 
+  async function onSubmit(data: CreatePostPayload) {
+    console.log(Object.keys(errors));
+    const blocks = await ref?.current?.save();
+    data.content = blocks;
+    setTitle(data.title);
+    setContent(data.content);
+    const response = await mutateAsync();
+    if (response) {
+      const newPathname = pathname.split("/").slice(0, -1).join("/");
+      router.push(newPathname);
+      router.refresh();
+    }
+  }
+
   return (
     <EditorContainer>
-      <form id="create-post-form" onSubmit={() => {}}>
-        <TextArea placeholder="Title" />
+      <form id="create-post-form" onSubmit={handleSubmit(onSubmit)}>
+        <TextArea placeholder="Title" {...register("title")} />
         <WYSIWYGEditor id="editorjs" />
       </form>
     </EditorContainer>

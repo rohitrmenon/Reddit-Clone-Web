@@ -4,7 +4,7 @@ export const EditorContainer = styled("div", {
   width: "100%",
   border: "2px solid $border",
   padding: "15px",
-  height:"fit-content"
+  height: "fit-content",
 });
 
 export const WYSIWYGEditor = styled("div", {
@@ -12,7 +12,7 @@ export const WYSIWYGEditor = styled("div", {
   border: "1px solid $border",
   borderRadius: "8px",
   padding: "15px",
-  minHeight: "300px", // Change height to minHeight
+  minHeight: "300px",
 });
 
 export const TextArea = styled("textarea", {

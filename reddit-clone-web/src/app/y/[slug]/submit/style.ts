@@ -21,6 +21,6 @@ export const CreatePostPageSubredditTitle = styled("h4", {
   display: "inline",
 });
 
-export const CreatePostForm = styled("form", {
+export const CreatePostForm = styled("div", {
     
 })

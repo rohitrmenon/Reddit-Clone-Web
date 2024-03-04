@@ -19,6 +19,7 @@ const routes = {
       `${BASE_URL}/api/v1/subreddit/getSubscription/user/${userId}/subreddit/${subredditId}`,
   },
   post: {
+    create:() => `${BASE_URL}/api/v1/posts/create`,
     link: () => `${BASE_URL}/api/v1/posts/link`,
   },
 };

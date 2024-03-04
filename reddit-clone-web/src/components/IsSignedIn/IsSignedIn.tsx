@@ -71,7 +71,7 @@ const IsSignedIn = (props: Props) => {
                   alignItems: "center",
                 }}
                 onClick={() => {
-                  signOut({ callbackUrl: '/', redirect:true });
+                  signOut({ callbackUrl: "/", redirect: true });
                 }}
               >
                 <div>Sign Out</div>
