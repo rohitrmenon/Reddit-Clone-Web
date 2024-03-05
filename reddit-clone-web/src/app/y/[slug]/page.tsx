@@ -28,7 +28,7 @@ const Page = ({ params: { slug } }: SlugPageProps) => {
     <div>
       <h1>y/{subreddit?.name}</h1>
       <CreatePost session={session} />
-      <Feed />
+      <Feed subredditName={subreddit?.name}/>
     </div>
   );
 };

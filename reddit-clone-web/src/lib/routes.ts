@@ -1,4 +1,7 @@
-import { BASE_URL } from "@/config/app.config";
+import {
+  BASE_URL,
+  INFINITE_SCROLLING_PAGINATION_RESULTS as limit,
+} from "@/config/app.config";
 
 const routes = {
   auth: {
@@ -19,8 +22,10 @@ const routes = {
       `${BASE_URL}/api/v1/subreddit/getSubscription/user/${userId}/subreddit/${subredditId}`,
   },
   post: {
-    create:() => `${BASE_URL}/api/v1/posts/create`,
+    create: () => `${BASE_URL}/api/v1/posts/create`,
     link: () => `${BASE_URL}/api/v1/posts/link`,
+    paginate: (pageParam: number, subredditName?: string) =>
+      `${BASE_URL}/api/v1/posts/paginate?limit=${limit}&pageParam=${pageParam}&subredditName=${subredditName}`,
   },
 };
 
