@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import type { Session } from "next-auth";
 import { notFound } from "next/navigation";
@@ -14,6 +14,7 @@ interface SlugPageProps {
 }
 
 const Page = ({ params: { slug } }: SlugPageProps) => {
+
   const { data: session } = useSession();
 
   const { data: subreddit, error } = useGetSubredditBySlug(
@@ -28,7 +29,7 @@ const Page = ({ params: { slug } }: SlugPageProps) => {
     <div>
       <h1>y/{subreddit?.name}</h1>
       <CreatePost session={session} />
-      <Feed subredditName={subreddit?.name}/>
+      <Feed subredditId={subreddit?.id} />
     </div>
   );
 };

@@ -24,8 +24,8 @@ const routes = {
   post: {
     create: () => `${BASE_URL}/api/v1/posts/create`,
     link: () => `${BASE_URL}/api/v1/posts/link`,
-    paginate: (pageParam: number, subredditName?: string) =>
-      `${BASE_URL}/api/v1/posts/paginate?limit=${limit}&pageParam=${pageParam}&subredditName=${subredditName}`,
+    paginate: (pageParam: number, subredditId?: string) =>
+      `${BASE_URL}/api/v1/posts/paginate?limit=${limit}&pageParam=${pageParam}&subredditId=${subredditId}`,
   },
 };
 
