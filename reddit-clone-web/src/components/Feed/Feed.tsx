@@ -4,12 +4,11 @@ import React, { useEffect } from "react";
 import Post from "../Post/Post";
 
 interface FeedProps {
-  subredditId: string;
+  subredditId?: string;
 }
 
 const Feed = ({ subredditId }: FeedProps) => {
   const { data, fetchNextPage } = useGetPosts(subredditId);
-
   const posts = data?.pages.flatMap((page) => page);
 
   const { ref, inView } = useInView();

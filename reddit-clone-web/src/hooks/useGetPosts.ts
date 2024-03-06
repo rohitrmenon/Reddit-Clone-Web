@@ -6,6 +6,7 @@ export const useGetPosts = (subredditId?: string) => {
   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery({
     queryKey: ["infinite-posts", subredditId],
     queryFn: async ({ pageParam }) => {
+      console.log(subredditId)
       const response = await axios.get(
         routes.post.paginate(pageParam, subredditId)
       );

@@ -10,6 +10,8 @@ export const HomeContainer = styled("div", {
 
 export const FeedContainer = styled("div", {
   padding: "$2",
+  minHeight: "400px", 
+  overflowY: "auto", 
 });
 
 export const CreateCommunityCard = styled("div", {
@@ -20,6 +22,7 @@ export const CreateCommunityCard = styled("div", {
   justifyContent: "center",
   background: "$surfaceColor",
   boxShadow: "$boxShadow$sm",
+  height: "fit-content",
 });
 
 export const HomeDiv = styled("div", {
