@@ -18,7 +18,7 @@ export const useGetSubredditBySlug = (slug: string, session: Session) => {
         throw error;
       }
     },
-    refetchOnMount: true,
+    refetchOnWindowFocus:true
   });
   return { data, isLoading, error, refetch };
 };

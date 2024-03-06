@@ -1,23 +1,29 @@
 import { useGetPosts } from "@/hooks/useGetPosts";
 import { useInView } from "react-intersection-observer";
 import React, { useEffect } from "react";
-import { Button } from "@/ui";
+import Post from "../Post/Post";
 
 interface FeedProps {
   subredditId: string;
 }
+
 const Feed = ({ subredditId }: FeedProps) => {
   const { data, fetchNextPage } = useGetPosts(subredditId);
 
-  console.log(data);
+  const posts = data?.pages.flatMap((page) => page);
 
-  const ref = React.useRef<HTMLDivElement>(null);
+  const { ref, inView } = useInView();
 
-  const { ref: viewRef, inView } = useInView();
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage]);
 
   return (
     <div>
-      <Button onClick={() => fetchNextPage()}>Fetch Next Page</Button>
+      {posts?.map((post, index) => <Post key={index} title={post.title} />)}
+      <div ref={ref}></div>
     </div>
   );
 };

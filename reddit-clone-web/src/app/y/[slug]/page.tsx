@@ -14,13 +14,12 @@ interface SlugPageProps {
 }
 
 const Page = ({ params: { slug } }: SlugPageProps) => {
-
   const { data: session } = useSession();
 
-  const { data: subreddit, error } = useGetSubredditBySlug(
-    slug,
-    session as Session
-  );
+  const {
+    data: subreddit,
+    error,
+  } = useGetSubredditBySlug(slug, session as Session);
 
   if (error) {
     return notFound();
