@@ -19,7 +19,12 @@ const Page = ({ params: { slug } }: SlugPageProps) => {
   const {
     data: subreddit,
     error,
+    refetch,
   } = useGetSubredditBySlug(slug, session as Session);
+
+  useEffect(() => {
+    refetch();
+  }, [slug, refetch]);
 
   if (error) {
     return notFound();

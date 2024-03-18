@@ -36,7 +36,6 @@ export const useGetSubscription = (
   subredditId: string,
   session?: Session
 ) => {
-  const queryClient = useQueryClient();
   const { data, error, isLoading, isFetching,refetch } = useQuery({
     queryKey: ["subscription", userId, subredditId],
     queryFn: async () => {

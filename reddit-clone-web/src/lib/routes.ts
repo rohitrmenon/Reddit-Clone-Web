@@ -26,6 +26,8 @@ const routes = {
     link: () => `${BASE_URL}/api/v1/posts/link`,
     paginate: (pageParam: number, subredditId?: string) =>
       `${BASE_URL}/api/v1/posts/paginate?limit=${limit}&pageParam=${pageParam}&subredditId=${subredditId}`,
+    vote: () => `${BASE_URL}/api/v1/posts/vote`,
+    getPost: (postId: string) => `${BASE_URL}/api/v1/posts/getPost/${postId}`,
   },
 };
 

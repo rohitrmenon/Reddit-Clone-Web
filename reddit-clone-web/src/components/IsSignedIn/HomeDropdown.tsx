@@ -40,17 +40,21 @@ const HomeDropdown = () => {
             <DropdownMenuContent
               css={{ maxHeight: "300px", overflow: "scroll" }}
             >
-              {data?.map((subredditData: any) => {
-                return (
-                  <DropdownMenuItem
-                    key={subredditData.id}
-                    css={{ cursor: "pointer" }}
-                    onClick={() => router.push(`/y/${subredditData?.name}`)}
-                  >
-                    {`y/${subredditData?.name}`}
-                  </DropdownMenuItem>
-                );
-              })}
+              {data ? (
+                data?.map((subredditData: any) => {
+                  return (
+                    <DropdownMenuItem
+                      key={subredditData.id}
+                      css={{ cursor: "pointer" }}
+                      onClick={() => router.push(`/y/${subredditData?.name}`)}
+                    >
+                      {`y/${subredditData?.name}`}
+                    </DropdownMenuItem>
+                  );
+                })
+              ) : (
+                <DropdownMenuItem>No Communites?Join One</DropdownMenuItem>
+              )}
             </DropdownMenuContent>
           </DropdownMenuGroup>
         </DropdownMenuPanel>
